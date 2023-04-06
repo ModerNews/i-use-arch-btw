@@ -23,7 +23,7 @@ green = #aec795
 
 
 [bar/Bar]
-bottom = top
+bottom = false
 wm-restack = i3
 
 monitor =
@@ -75,9 +75,9 @@ underline-color = ${colors.modfg}
 ; font-4 = unifont:size=15;3
 
 font-0 = MicorFLF:weight=regular:size=12;3
-font-1 = FontAwesome 5 Free:size=12;3
+font-1 = FontAwesome 6 Free:size=12;3
 font-2 = IPAGothic:weight=regular:size=12;3
-font-3 = FontAwesome 5 Free:size=12:style=Solid;3
+font-3 = FontAwesome 6 Free:size=12:style=Solid;3
 font-4 = Unifont:size=12;3
 
 [module/xwindow]
@@ -217,7 +217,7 @@ label = " %percentage_used%%"
 
 [module/wlan]
 type = internal/network
-interface = wlp2s0
+interface = wlan0
 interval = 3.0
 
 format-connected-padding = 1
