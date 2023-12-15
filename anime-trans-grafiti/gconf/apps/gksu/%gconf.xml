@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="save-keyring" mtime="1682584467" type="string">
+		<stringvalue>session</stringvalue>
+	</entry>
+	<entry name="save-to-keyring" mtime="1682584534" type="bool" value="true"/>
+</gconf>

@@ -1,0 +1,15 @@
+;:set syn=dosini
+[colors]
+fg = ${xrdb:color2}
+modfg = ${xrdb:color3}
+bord = ${xrdb:color3}
+alt = ${xrdb:color2}
+alt2 = ${xrdb:color1}
+bg = ${xrdb:color0}
+
+white = #d1d1d1
+gray = #585858
+red = #e165a7
+blue = #95aec7
+yellow = #c7ae95
+green = #aec795 

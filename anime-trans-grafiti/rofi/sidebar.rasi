@@ -1,0 +1,135 @@
+/**
+ * rofi -dump-theme output.
+ * Rofi version: 1.7.5
+ **/
+
+configuration {
+    show-icons:                     true;
+    window-format:                  "{t}";
+    window-match-fields:            "title";
+}
+
+@import "colors.rasi"
+
+window {
+    width:      14.6em ;
+    padding:    0.25em 0 0.65em 0.65em;
+    location:   west;
+    transparency: "real";
+    height:     100.0000% ;
+    //border:     5px;
+    //border-color: var(lightblue)
+    text-color: var(lightwhite);
+}
+mode-switcher {
+    padding:          4px ;
+    background-color: var(lightblack);
+    border:           2px 0px 0px ;
+}
+button selected {
+    border-color: var(lightgreen);
+    text-color:   var(lightgreen);
+}
+
+inputbar-box {
+    children: [textbox-prompt, inputbar];
+    expand: false;
+    background-color: var(bg-color);
+    orientation: horizontal;
+    border: 3px;
+    border-color: var(alt-color);
+    padding: 0px;
+    marign: 0px;
+}
+
+textbox-prompt {
+    font: "Symbols Nerd Font Mono 16";
+    text-color: var(alt-color);
+    str: "";
+    padding: 5px 10px 0px 8px;
+    horizontal-alignment: 0.5;
+    background-color: var(bg-color);
+    expand: false;
+    margin: -4px;
+    border: 0px;
+}
+
+entry {
+	font: "JetBrainsMono Nerd Font 10";
+	expand: false;
+	margin: -7px 0px -7px 0px;
+	horizontal-align: 0.5;
+	width: 12.5em;
+	background-color: var(bg-color);
+	padding: 9px 10px 9px 4px;
+	border: 0px 0px 0px 0px;
+	border-color: var(alt-color);
+	text-color: var(alt-color);
+}
+
+inputbar {
+    children: [entry];
+    padding:          4px;
+    background-color: var(bg-color);
+    text-color:       var(lightgreen);
+    border:           0;
+}
+
+mainbox {
+    children: [inputbar-box, listview];
+    background-color: #ffffff00;
+    expand:           true;
+    spacing:          0.3em;
+    border: 	      0px;
+    border-color:     #2ca0cb;
+}
+
+listview {
+    padding: 0.6000em 0.4000em 0.0000em 1.0000em ;
+    dynamic: false;
+    lines:   0;
+    background-color: var(bg-color);
+    border: 3px;
+    border-color: var(alt-color);
+}
+
+element {
+	//padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px -15px;
+}
+
+element-text {
+    font: "JetBrainsMono Nerd Font 12";
+    background-color: inherit;
+    text-color:       inherit;
+}
+element selected.normal {
+    background-color: var(fg-color);
+    text-color: var(bg-color);
+}
+element selected.active {
+	text-color: #5da3ce;
+}
+element selected.urgent {
+    background-color: var(lightred);
+    text-color:       var(dark);
+}
+element normal.normal {
+    text-color: var(alt-color);
+}
+element normal.urgent {
+    text-color: var(lightred);
+}
+element alternate.normal {
+    text-color: var(alt-color);
+}
+element alternate.urgent {
+    text-color: var(lightred);
+}
+error-message {
+    padding:          1.0000em ;
+    background-color: Red;
+    expand:           true;
+    border-color:     DarkRed;
+    border:           2px ;
+}

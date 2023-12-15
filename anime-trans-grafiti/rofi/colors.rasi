@@ -1,0 +1,31 @@
+// Set colors and font from enviroment variables, with Nord color fallbacks.
+// These environment variables are set when Rofi is invoked through the
+// script scripts/rofi-wrapper.sh
+
+* {
+    bg-color:         rgba(31, 27, 45, 90 %);
+    bg-color-opaque:  rgba(31, 27, 45);
+    fg-color:         #e165a7;
+    alt-color:        #2ca0cb;
+
+    red:              IndianRed;
+    lightgreen:       rgba ( 136, 204, 34, 100 % );
+    green:            rgba ( 134, 175, 128, 100 % );
+    background-color: transparent;
+    lightred:         rgba ( 204, 85, 51, 100 % );
+    blue:             CornflowerBlue;
+    lightmagenta:     rgba ( 153, 102, 0, 100 % );
+    dark:             rgba ( 28, 28, 28, 100 % );
+    lightblack:       rgba ( 85, 68, 68, 100 % );
+    lightblue:        SkyBlue;
+    black:            rgba ( 61, 53, 42, 100 % );
+    lightwhite:       rgba ( 221, 204, 187, 100 % );
+    cyan:             LightSteelBlue;
+    magenta:          BurlyWood;
+    lightyellow:      rgba ( 255, 167, 93, 100 % );
+    text-color:       rgba ( 255, 238, 221, 100 % );
+    white:            rgba ( 187, 170, 153, 100 % );
+    yellow:           rgba ( 232, 174, 91, 100 % );
+    lightcyan:        LightSteelBlue;
+    highlight:        bold White;
+}
