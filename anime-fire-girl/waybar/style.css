@@ -1,0 +1,245 @@
+/* =============================================================================
+ *
+ * Waybar configuration
+ *
+ * Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
+ *
+ * =========================================================================== */
+
+/* -----------------------------------------------------------------------------
+ * Keyframes
+ * -------------------------------------------------------------------------- */
+
+/*
+Arc-Dark Color Scheme
+*/
+@keyframes blink-warning {
+  70% {
+    color: white;
+  }
+
+  to {
+    color: white;
+    background-color: orange;
+  }
+}
+
+@keyframes blink-critical {
+  70% {
+    color: white;
+  }
+
+  to {
+    color: white;
+    background-color: red;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+ * Base styles
+ * -------------------------------------------------------------------------- */
+
+/* Reset all styles */
+/*:root {
+  --bg: rgba(26, 8, 8, 0.65);
+  --fg: #fefefe;
+  --alt_bg: #ad2a30;
+  --yellow: #ec8509;
+  --cyan: #4fc7cd;
+  --darkblue: #4c6a84;
+  --green: #14423f;
+  --orange: #f36630;
+  --violet: #c678dd;
+  --magenta: #f189c8;
+  --blue: #a1e7eb;
+  --red: #ad2a30;
+}*/
+
+* {
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  margin: 1px;
+  padding: 0;
+  color: #fefefe;
+}
+
+/* The whole bar */
+window#waybar {
+  /* color: #dfdfdf; */
+  /* background-color: rgba(26, 8, 8, 0.65);*/
+  background-color: rgba(0, 0, 0, 0);
+  font-family: JetBrains Mono Nerd Font;
+  /*font-family: Intel One Mono Nerd Font;*/
+  font-size: 14px;
+  /* border-radius: 22px; */
+}
+
+/* Every modules */
+#battery,
+#clock,
+#backlight,
+#cpu,
+#custom-keyboard-layout,
+#memory,
+#mode,
+#custom-weather,
+#network,
+#pulseaudio,
+#temperature,
+#tray,
+#idle_inhibitor,
+#window,
+#custom-power,
+#workspaces,
+#custom-media,
+#custom-PBPbattery {
+  padding: 0.25rem 0.75rem;
+  margin: 1px 6px;
+  border: 2px solid #ad2a30;
+  background-color: rgba(26, 8, 8, 0.65);
+  border-radius: 20px;
+}
+
+/* -----------------------------------------------------------------------------
+ * Modules styles
+ * -------------------------------------------------------------------------- */
+
+#clock {
+  /* color: #ff4499; */
+  color: #73daca;
+}
+
+#battery.warning.discharging {
+  animation-name: blink-warning;
+  animation-duration: 3s;
+}
+
+#battery.critical.discharging {
+  animation-name: blink-critical;
+  animation-duration: 2s;
+}
+
+#cpu {
+  color: #f7768e;
+}
+
+#cpu.warning {
+  color: orange;
+}
+
+#cpu.critical {
+  color: red;
+}
+
+#memory {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  color: #f7768e;
+}
+
+#memory.warning {
+  color: orange;
+}
+
+#memory.critical {
+  color: red;
+  animation-name: blink-critical;
+  animation-duration: 2s;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mode {
+  /* background: @highlight; */
+  /* background: #dfdfdf; */
+  border-bottom: 3px transparent;
+  color: #ff4499;
+  margin-left: 5px;
+  padding: 7px;
+}
+
+#network.disconnected {
+  color: orange;
+}
+
+#pulseaudio {
+  color: #bb9af7;
+  border-left: 0px;
+  border-right: 0px;
+  margin-right: 0;
+  border-radius: 20px 0 0 20px;
+}
+
+/* #pulseaudio.muted { */
+/*     color: #ff4499; */
+/* } */
+/**/
+#pulseaudio.microphone {
+  border-left: 0px;
+  border-right: 0px;
+  margin-left: 0;
+  padding-left: 0;
+  border-radius: 0 20px 20px 0;
+}
+
+/* #pulseaudio.microphone.muted { */
+/*     color: #ff4499; */
+/* } */
+
+#temperature.critical {
+  color: red;
+}
+
+#window {
+  font-weight: bold;
+  color: #fefefe;
+}
+
+#workspaces {
+  font-size: 16px;
+}
+
+#workspaces button {
+  border-radius: 20px;
+}
+
+#workspaces button:hover {
+  background: none;
+  box-shadow: none;
+  text-shadow: none;
+  background-color: #ad2a30;
+}
+
+#workspaces button.active {
+  /*border-bottom: 1px solid #ff4499;
+  margin-bottom: 1px;*/
+  padding-left: 0;
+  background-color: #1a2a53;
+}
+
+#workspaces button.active:hover {
+  background-color: #ad2a30;
+}
+
+#workspaces button.urgent {
+  border-color: #c9545d;
+  color: #c9545d;
+}
+
+#custom-power {
+  font-size: 18px;
+  padding-right: 1rem;
+}
+
+#custom-launcher {
+  font-size: 15px;
+  margin-left: 15px;
+  margin-right: 10px;
+}
+
+#backlight.icon {
+  padding-right: 1px;
+  font-size: 13px;
+}
