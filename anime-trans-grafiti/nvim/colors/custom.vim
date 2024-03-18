@@ -121,3 +121,16 @@ hi DiffAdd guifg=#ffffff guibg=#5f875f gui=NONE cterm=NONE
 hi DiffChange guifg=#ffffff guibg=#5f87af gui=NONE cterm=NONE
 hi DiffText guifg=#000000 guibg=#c6c6c6 gui=NONE cterm=NONE
 hi DiffDelete guifg=#ffffff guibg=#af5faf gui=NONE cterm=NONE
+
+hi NvimTreeSymLink guifg=#2ca0cb guibg=None gui=italic cterm=italic
+hi NvimTreeExecFile guifg=#2ca0cb guibg=None gui=bold cterm=bold
+hi NvimTreeOpenedFile guifg=#00875f guibg=None gui=bold cterm=bold
+hi! link NvimTreeModifiedFile NivmTreeOpenedFile
+hi NvimTreeSpecialFile guifg=#a162a1 guibg=None gui=bold cterm=bold
+hi! link NvimTreeImageFile NvimTreeSpecialFile
+
+hi NvimTreeFolderName guifg=#e165a7 guibg=None gui=bold cterm=italic
+hi NvimTreeEmptyFolderName guifg=#666666 guibg=None gui=bold cterm=bold
+hi! link NvimTreeOpenedFolderName NvimTreeFolderName
+hi NvimTreeSymLinkFolderName guifg=#2ca0cb guibg=None gui=bold cterm=bold
+hi NvimTreeRootFolder guifg=#a162a1 guibg=None gui=bold cterm=bold
