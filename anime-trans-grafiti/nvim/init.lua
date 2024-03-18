@@ -1,5 +1,6 @@
 local opt = vim.opt
-opt.showmode = true
+opt.showmode = false
+opt.laststatus = 3
 
 opt.clipboard = "unnamedplus"
 opt.cursorline = false
@@ -9,8 +10,8 @@ opt.expandtab = true
 opt.shiftwidth = 2
 opt.smartindent = true
 opt.autoindent = true
-opt.tabstop = 2
-opt.softtabstop = 2
+opt.tabstop = 4
+opt.softtabstop = 4
 
 opt.fillchars = { eob = " " }
 opt.ignorecase = true
@@ -46,49 +47,72 @@ end
 opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  "neovim/nvim-lspconfig",   -- LSP configurer
-  "folke/which-key.nvim",    -- keymap
-  "folke/neodev.nvim",       -- LSP for init.lua nvim file
-  {
-    "utilyre/barbecue.nvim", -- context map (on top)
-    dependencies = {
-      "SmiteshP/nvim-navic",
-      "nvim-tree/nvim-web-devicons", -- optional dependency
-    },
-  },
-  "ziontee113/color-picker.nvim",    -- color picker (who would have guessed)
-  "lewis6991/gitsigns.nvim",         -- TODO: gitsigns
-  "xiyaowong/link-visitor.nvim",     -- Url opener (cmd)
-  "jghauser/mkdir.nvim",             -- create missing directories on write
-  "NvChad/nvim-colorizer.lua",       -- highlight color definitions with their color
-  "nvim-treesitter/nvim-treesitter", -- additional support for highlighting (in depth functions/methods/variables)
-  {
-    "windwp/nvim-ts-autotag",
-    dependencies = { "nvim-treesitter/nvim-treesitter" }
-  },
-  {
-    "nvim-tree/nvim-tree.lua", -- directory tree
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-  },
-  "creativenull/efmls-configs-nvim", -- Predefined configs for EFM language server
-  "lukas-reineke/lsp-format.nvim",   -- LSP-based autoformatting
-  "adelarsq/image_preview.nvim",     -- preview images in terminal
-  "LuaLS/lua-language-server",       -- language server for lua
-  "nvimdev/lspsaga.nvim",            -- lsp helper
+	"neovim/nvim-lspconfig", -- LSP configurer
+	"folke/which-key.nvim", -- keymap
+	"folke/neodev.nvim", -- LSP for init.lua nvim file
+		"utilyre/barbecue.nvim", -- context map (on top)
+	{
+		dependencies = {
+			"SmiteshP/nvim-navic",
+			"nvim-tree/nvim-web-devicons", -- optional dependency
+		},
+	},
+	"ziontee113/color-picker.nvim", -- color picker (who would have guessed)
+	{
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("gitsigns").setup({
+				on_attach = function()
+					local gs = require("gitsigns")
+				end,
+					vim.keymap.set("n", "<leader>gb", gs.toggle_current_line_blame)
+			})
+		end,
+	},
+	"xiyaowong/link-visitor.nvim", -- Url opener (cmd)
+	"jghauser/mkdir.nvim", -- create missing directories on write
+	"NvChad/nvim-colorizer.lua", -- highlight color definitions with their color
+	{
+		"nvim-treesitter/nvim-treesitter",
+		dependencies = {
+			"windwp/nvim-ts-autotag",
+		},
+	}, -- additional support for highlighting (in depth functions/methods/variables)
+	{
+		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v3.x",
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+		},
+		config = function()
+		end,
+	},
+			require("neotree")
+	"creativenull/efmls-configs-nvim", -- Predefined configs for EFM language server
   "lukas-reineke/lsp-format.nvim",   --lsp autoformatting
-  {
-    "hrsh7th/nvim-cmp",              -- autocompletion
-    event = "InsertEnter",
-    dependencies = {
-      { "L3MON4D3/LuaSnip", dependencies = "rafamadriz/friendly-snippets" }, -- VS Code snippets
-      {
-        "windwp/nvim-autopairs",                                             -- auto pair parenthesis
-        opts = {
-          fast_wrap = {},
-          disable_filetype = { "TelescopePrompt", "vim" },
-        },
-        config = function(_, opts)
-          require("nvim-autopairs").setup(opts)
+	"LuaLS/lua-language-server", -- language server for lua
+	"adelarsq/image_preview.nvim", -- preview images in terminal
+	{
+		"NumToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup()
+		end,
+	},
+		"hrsh7th/nvim-cmp", -- autocompletion
+	{
+		event = "InsertEnter",
+		dependencies = {
+			{ "L3MON4D3/LuaSnip", dependencies = "rafamadriz/friendly-snippets" }, -- VS Code snippets
+			{
+				"windwp/nvim-autopairs", -- auto pair parenthesis
+				opts = {
+					fast_wrap = {},
+					disable_filetype = { "TelescopePrompt", "vim" },
+				},
+					require("nvim-autopairs").setup(opts)
+				config = function(_, opts)
 
           -- setup cmp for autopairs
           local cmp_autopairs = require("nvim-autopairs.completion.cmp")
@@ -96,70 +120,180 @@ require("lazy").setup({
         end,
       },
 
-      -- cmp sources plugins
-      {
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-        "onsails/lspkind.nvim",          -- VS Code icons for CompletionItemKind
-      },
-      "nvim-lualine/lualine.nvim",       -- Custom status line
-      {
-        "nvim-telescope/telescope.nvim", -- file/buffer search
-        dependencies = {
-          "nvim-lua/plenary.nvim",
-        },
-      },
-      {
-        "sudormrfbin/cheatsheet.nvim", -- cheatsheet (predefined)
-        dependencies = {
-          "nvim-telescope/telescope.nvim",
-        },
-      },
-    },
-  },
-  {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    build = "cd app && yarn install",
-    init = function()
-      vim.g.mkdp_filetypes = { "markdown" }
-    end,
-    ft = { "markdown" },
-  },
-  {
-    "github/copilot.vim"
-  }
+			-- cmp sources plugins
+			{
+				"saadparwaiz1/cmp_luasnip",
+				"hrsh7th/cmp-nvim-lua",
+				"hrsh7th/cmp-nvim-lsp",
+				"hrsh7th/cmp-buffer",
+				"hrsh7th/cmp-path",
+				"onsails/lspkind.nvim", -- VS Code icons for CompletionItemKind
+			},
+				"nvim-telescope/telescope.nvim", -- file/buffer search
+			{
+				},
+					"nvim-lua/plenary.nvim",
+				dependencies = {
+			},
+			{
+				dependencies = {
+				"sudormrfbin/cheatsheet.nvim", -- cheatsheet (predefined)
+				},
+					"nvim-telescope/telescope.nvim",
+	},
+		},
+			},
+		end,
+			vim.g.copilot_no_tab_map = true
+	},
+				replace_keycodes = false,
+			})
+				expr = true,
+			vim.keymap.set("i", "<C-Tab>", 'copilot#Accept("\\<CR>")', {
+		"github/copilot.vim",
+		config = function()
+	{
+	"nvim-lualine/lualine.nvim", -- Custom status line
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		dependencies = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
+		main = "ibl",
+	}, -- indent lines
+		opts = {},
+	{
+		"folke/noice.nvim", -- custom bubbles
+			-- "folke/lsp-colors.nvim", -- LSP colors
+		dependencies = {
+			-- "folke/lsp-trouble.nvim", -- LSP trouble
+			-- "folke/lsp-status.nvim", -- LSP status
+			"rcarriga/nvim-notify", -- notifications
+			"MunifTanjim/nui.nvim", -- UI components
+		},
+	},
+	{
+		"folke/todo-comments.nvim",
+		dependencies = {
+			"nvim-lua/popup.nvim",
+			"nvim-lua/plenary.nvim",
+			keywords = {
+		},
+		opts = {
+				FIX = { icon = " ", color = "default", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
+				TODO = { icon = " ", color = "hint" },
+				HACK = { icon = " ", color = "warning" },
+				WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+				PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+				NOTE = { icon = " ", color = "info", alt = { "INFO" } },
+				TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+			},
+				error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
+			colors = {
+				info = { "DiagnosticInfo", "#2563EB" }, -- TODO: DiagnosticInfo
+				warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" }, -- HACK: WarningMsg
+				hint = { "DiagnosticHint", "#10B981" }, -- NOTE: DiagnosticHint
+				test = { "Identifier", "#FF00FF" }, -- FIX:
+				default = { "Identifier", "#7C3AED" }, -- PERF:
+			},
+		},
+		config = function()
+			require("todo-comments").setup({
+				on_attach = {
+					function() end,
+				},
+			})
+	{
+	},
+		end,
+	},
+		opts = {},
+		"folke/trouble.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 })
 
+vim.keymap.set("n", "]t", function()
+	require("todo-comments").jump_next()
+end, { desc = "Next todo comment" })
+
+vim.keymap.set("n", "[t", function()
+	require("todo-comments").jump_prev()
+end, { desc = "Previous todo comment" })
+
 require("nvim-treesitter.configs").setup({
-  ensure_installed = {
-    "lua",
-    "vim",
-    "vimdoc",
-    "css",
-    "csv",
-    "dockerfile",
-    "dot",
-    "git_config",
-    "javascript",
-    "json",
-    "html",
-    "regex",
-    "python",
-  },
-  sync_install = false,
-  auto_install = true,
-  highlight = { enable = true },
+	ensure_installed = {
+		"lua",
+		"vim",
+		"vimdoc",
+		"css",
+		"csv",
+		"dockerfile",
+		"dot",
+		"git_config",
+		"javascript",
+		"json",
+		"html",
+		"regex",
+		"python",
+	},
+	ignore_install = { "haskell" },
+	sync_install = false,
+	auto_install = true,
+	highlight = { enable = true },
+	autotag = { enable = true },
 })
+
+local highlight = {
+	"RainbowRed",
+	"RainbowYellow",
+	"RainbowBlue",
+	"RainbowOrange",
+	"RainbowGreen",
+	"RainbowViolet",
+	"RainbowCyan",
+}
+
+local hooks = require("ibl.hooks")
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+	vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+	vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+	vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+	vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+	vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+	vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+	vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+end)
+
+local rainbow_delimiters = require("rainbow-delimiters")
+vim.g.rainbow_delimiters = {
+	strategy = {
+		[""] = rainbow_delimiters.strategy["global"],
+		vim = rainbow_delimiters.strategy["local"],
+	},
+	query = {
+		[""] = "rainbow-delimiters",
+		lua = "rainbow-blocks",
+	},
+	priority = {
+		[""] = 110,
+		lua = 210,
+	},
+	highlight = highlight,
+}
+
+require("ibl").setup({
+	indent = {
+		highlight = { "Comment" },
+		-- level = 1,
+	},
+	scope = { highlight = { "Identifier" } },
+})
+hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
 
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+vim.keymap.set("n", "<leader>ft", ":TodoTelescope<CR>", {})
 vim.keymap.set("n", "<C-k>", builtin.buffers, {})
 
 require("lspconfigure") -- load LSP configuration from external lua file
@@ -238,8 +372,14 @@ require("colorizer").setup()
 
 vim.cmd("colorscheme custom")
 
+local colors = {
+	text = "#d83e4a",
+	inactive_bg = "#1a2a53",
+	active_bg1 = "#1b1722",
+	active_bg2 = "#f36630",
+}
 
-require("nvimtree")
+require("lualine-cfg")
 
 require("lualine").setup({
   options = {
@@ -303,3 +443,26 @@ require("color-picker").setup({
 
 require("link-visitor").setup()
 require("lspsaga").setup()
+
+require("noice").setup({
+	lsp = {
+		-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+		override = {
+			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+			["vim.lsp.util.stylize_markdown"] = true,
+			["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+		},
+	},
+	-- you can enable a preset for easier configuration
+	presets = {
+		bottom_search = true, -- use a classic bottom cmdline for search
+		command_palette = true, -- position the cmdline and popupmenu together
+		long_message_to_split = true, -- long messages will be sent to a split
+		inc_rename = false, -- enables an input dialog for inc-rename.nvim
+		lsp_doc_border = false, -- add a border to hover docs and signature help
+	},
+	cmdline = {
+		enabled = true,
+		view = "cmdline_popup",
+	},
+})

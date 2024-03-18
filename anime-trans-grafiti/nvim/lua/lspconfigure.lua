@@ -38,6 +38,21 @@ local efmls_config = {
   capabilities = capabilities,
 }
 
+lspconfig.tsserver.setup({ capabilities = capabilities })
+
+local lspconfig = require("lspconfig")
+lspconfig.efm.setup(vim.tbl_extend("force", efmls_config, {}))
+lspconfig.lua_ls.setup({ capabilities = capabilities })
+lspconfig.pyright.setup({ capabilities = capabilities })
+lspconfig.docker_compose_language_service.setup({ capabilities = capabilities })
+lspconfig.dockerls.setup({ capabilities = capabilities })
+lspconfig.cssmodules_ls.setup({ capabilities = capabilities })
+lspconfig.html.setup({ capabilities = capabilities })
+lspconfig.marksman.setup({ capabilities = capabilities})
+lspconfig.rust_analyzer.setup({ capabilities = capabilities })
+lspconfig.vimls.setup({ capabilities = capabilities })
+lspconfig.tsserver.setup({ capabilities = capabilities })
+
 require("lsp-format").setup()
 local on_attach = function(client, bufnr)
   require("lsp-format").on_attach(client, bufnr)
