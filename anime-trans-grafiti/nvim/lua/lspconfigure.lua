@@ -50,6 +50,7 @@ lspconfig.html.setup({ capabilities = capabilities })
 lspconfig.marksman.setup({ capabilities = capabilities})
 lspconfig.rust_analyzer.setup({ capabilities = capabilities })
 lspconfig.vimls.setup({ capabilities = capabilities })
+lspconfig.tsserver.setup({ capabilities = capabilities })
 
 local lsp_fmt_group = vim.api.nvim_create_augroup("LspFormattingGroup", {})
 vim.api.nvim_create_autocmd("BufWritePost", {

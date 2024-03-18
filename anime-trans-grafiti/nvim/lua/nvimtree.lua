@@ -4,7 +4,23 @@ local function tree_on_attach(bufnr)
 	-- default mappings
 	api.config.mappings.default_on_attach(bufnr)
 
+	local function vsplit_preview()
+		local node = api.tree.get_node_under_cursor()
+
+		if node.nodes ~= nil then
+			-- expand or collapse folder
+			api.node.open.edit()
+		else
+			-- open file as vsplit
+			api.node.open.vertical()
+		end
+
+		-- Finally refocus on tree if it was lost
+		api.tree.focus()
+	end
+
 	vim.keymap.set("n", "<leader>tr", api.tree.reload)
+	vim.keymap.set("n", "<S-C-M>", vsplit_preview)
 end
 
 require("nvim-tree").setup({
@@ -20,9 +36,9 @@ require("nvim-tree").setup({
 		enable = true,
 		show_on_dirs = true,
 		show_on_open_dirs = false,
-    severity = {
-      min = vim.diagnostic.severity.ERROR
-    } 
+		severity = {
+			min = vim.diagnostic.severity.ERROR,
+		},
 	},
 })
 
@@ -33,6 +49,9 @@ vim.keymap.set("n", "<C-t>", function()
 end)
 vim.keymap.set("n", "<leader>tt", function()
 	tree_api.tree.toggle({ find_file = true })
+end)
+vim.keymap.set("n", "<leader>tf", function()
+	tree_api.tree.open()
 end)
 
 -- That's too much magic for me - Auto-Close implementation;

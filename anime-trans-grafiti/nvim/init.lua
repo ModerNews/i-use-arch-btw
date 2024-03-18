@@ -1,5 +1,6 @@
 local opt = vim.opt
-opt.showmode = true
+opt.showmode = false
+opt.laststatus = 3
 
 opt.clipboard = "unnamedplus"
 opt.cursorline = false
@@ -9,8 +10,8 @@ opt.expandtab = true
 opt.shiftwidth = 2
 opt.smartindent = true
 opt.autoindent = true
-opt.tabstop = 2
-opt.softtabstop = 2
+opt.tabstop = 4
+opt.softtabstop = 4
 
 opt.fillchars = { eob = " " }
 opt.ignorecase = true
@@ -57,19 +58,48 @@ require("lazy").setup({
 		},
 	},
 	"ziontee113/color-picker.nvim", -- color picker (who would have guessed)
-	"lewis6991/gitsigns.nvim", -- TODO: gitsigns
-  "xiyaowong/link-visitor.nvim", -- Url opener (cmd)
+	{
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("gitsigns").setup({
+				on_attach = function()
+					local gs = require("gitsigns")
+					vim.keymap.set("n", "<leader>gb", gs.toggle_current_line_blame)
+				end,
+			})
+		end,
+	},
+	"xiyaowong/link-visitor.nvim", -- Url opener (cmd)
 	"jghauser/mkdir.nvim", -- create missing directories on write
 	"NvChad/nvim-colorizer.lua", -- highlight color definitions with their color
-	"nvim-treesitter/nvim-treesitter", -- additional support for highlighting (in depth functions/methods/variables)
 	{
-		"nvim-tree/nvim-tree.lua", -- directory tree
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		"nvim-treesitter/nvim-treesitter",
+		dependencies = {
+			"windwp/nvim-ts-autotag",
+		},
+	}, -- additional support for highlighting (in depth functions/methods/variables)
+	{
+		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v3.x",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons",
+			"MunifTanjim/nui.nvim",
+		},
+		config = function()
+			require("neotree")
+		end,
 	},
-  "creativenull/efmls-configs-nvim", -- Predefined configs for EFM language server
+	"creativenull/efmls-configs-nvim", -- Predefined configs for EFM language server
 	"lukas-reineke/lsp-format.nvim",
 	"adelarsq/image_preview.nvim", -- preview images in terminal
 	"LuaLS/lua-language-server", -- language server for lua
+	{
+		"NumToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup()
+		end,
+	},
 	{
 		"hrsh7th/nvim-cmp", -- autocompletion
 		event = "InsertEnter",
@@ -99,7 +129,6 @@ require("lazy").setup({
 				"hrsh7th/cmp-path",
 				"onsails/lspkind.nvim", -- VS Code icons for CompletionItemKind
 			},
-			"nvim-lualine/lualine.nvim", -- Custom status line
 			{
 				"nvim-telescope/telescope.nvim", -- file/buffer search
 				dependencies = {
@@ -114,7 +143,86 @@ require("lazy").setup({
 			},
 		},
 	},
+	{
+		"github/copilot.vim",
+		config = function()
+			vim.keymap.set("i", "<C-Tab>", 'copilot#Accept("\\<CR>")', {
+				expr = true,
+				replace_keycodes = false,
+			})
+			vim.g.copilot_no_tab_map = true
+		end,
+	},
+	"nvim-lualine/lualine.nvim", -- Custom status line
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		dependencies = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
+		main = "ibl",
+		opts = {},
+	}, -- indent lines
+	{
+		"folke/noice.nvim", -- custom bubbles
+		dependencies = {
+			-- "folke/lsp-colors.nvim", -- LSP colors
+			-- "folke/lsp-trouble.nvim", -- LSP trouble
+			-- "folke/lsp-status.nvim", -- LSP status
+			"MunifTanjim/nui.nvim", -- UI components
+			"rcarriga/nvim-notify", -- notifications
+		},
+	},
+	--{
+	--	"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+	--	config = function()
+	--	require("lsp_lines").setup()
+	--	end,
+	--},
+	{
+		"folke/todo-comments.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-lua/popup.nvim",
+		},
+		opts = {
+			keywords = {
+				FIX = { icon = " ", color = "default", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
+				TODO = { icon = " ", color = "hint" },
+				HACK = { icon = " ", color = "warning" },
+				WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+				PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+				NOTE = { icon = " ", color = "info", alt = { "INFO" } },
+				TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+			},
+			colors = {
+				error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
+				warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" }, -- HACK: WarningMsg
+				info = { "DiagnosticInfo", "#2563EB" }, -- TODO: DiagnosticInfo
+				hint = { "DiagnosticHint", "#10B981" }, -- NOTE: DiagnosticHint
+				default = { "Identifier", "#7C3AED" }, -- PERF:
+				test = { "Identifier", "#FF00FF" }, -- FIX:
+			},
+		},
+		config = function()
+			require("todo-comments").setup({
+				on_attach = {
+					function() end,
+				},
+			})
+		end,
+	},
+	{
+		"folke/trouble.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {},
+	},
 })
+
+vim.keymap.set("n", "]t", function()
+	require("todo-comments").jump_next()
+end, { desc = "Next todo comment" })
+
+vim.keymap.set("n", "[t", function()
+	require("todo-comments").jump_prev()
+end, { desc = "Previous todo comment" })
 
 require("nvim-treesitter.configs").setup({
 	ensure_installed = {
@@ -132,16 +240,66 @@ require("nvim-treesitter.configs").setup({
 		"regex",
 		"python",
 	},
+	ignore_install = { "haskell" },
 	sync_install = false,
 	auto_install = true,
 	highlight = { enable = true },
+	autotag = { enable = true },
 })
+
+local highlight = {
+	"RainbowRed",
+	"RainbowYellow",
+	"RainbowBlue",
+	"RainbowOrange",
+	"RainbowGreen",
+	"RainbowViolet",
+	"RainbowCyan",
+}
+
+local hooks = require("ibl.hooks")
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+	vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+	vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+	vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+	vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+	vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+	vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+	vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+end)
+
+local rainbow_delimiters = require("rainbow-delimiters")
+vim.g.rainbow_delimiters = {
+	strategy = {
+		[""] = rainbow_delimiters.strategy["global"],
+		vim = rainbow_delimiters.strategy["local"],
+	},
+	query = {
+		[""] = "rainbow-delimiters",
+		lua = "rainbow-blocks",
+	},
+	priority = {
+		[""] = 110,
+		lua = 210,
+	},
+	highlight = highlight,
+}
+
+require("ibl").setup({
+	indent = {
+		highlight = { "Comment" },
+		-- level = 1,
+	},
+	scope = { highlight = { "Identifier" } },
+})
+hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
 
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+vim.keymap.set("n", "<leader>ft", ":TodoTelescope<CR>", {})
 vim.keymap.set("n", "<C-k>", builtin.buffers, {})
 
 require("lspconfigure") -- load LSP configuration from external lua file
@@ -221,66 +379,13 @@ require("colorizer").setup()
 vim.cmd("colorscheme custom")
 
 local colors = {
-	text = "#1f1b2d",
-	inactive_bg = "#a162a1",
-	active_bg1 = "#e165a7",
-	active_bg2 = "#2ca0cb",
+	text = "#d83e4a",
+	inactive_bg = "#1a2a53",
+	active_bg1 = "#1b1722",
+	active_bg2 = "#f36630",
 }
 
-require("nvimtree")
-
-local custom_auto_lualine = require("lualine.themes.auto")
-custom_auto_lualine.normal.c.fg = colors.text
-custom_auto_lualine.insert.c.fg = colors.text
-custom_auto_lualine.replace.c.fg = colors.text
-custom_auto_lualine.visual.c.fg = colors.text
-custom_auto_lualine.command.c.fg = colors.text
-custom_auto_lualine.inactive = {
-	a = { fg = colors.text, bg = colors.inactive_bg, gui = "bold" },
-	b = { fg = colors.inactive_bg, bg = colors.text },
-	c = { fg = colors.text, bg = colors.inactive_bg },
-}
-
-require("lualine").setup({
-	options = {
-		icons_enabled = true,
-		theme = custom_auto_lualine,
-		component_separators = { left = "", right = "" },
-		section_separators = { left = "", right = "" },
-		disabled_filetypes = {
-			statusline = { "NvimTree" },
-			winbar = {},
-		},
-		ignore_focus = {},
-		always_divide_middle = true,
-		globalstatus = false,
-		refresh = {
-			statusline = 1000,
-			tabline = 1000,
-			winbar = 1000,
-		},
-	},
-	sections = {
-		lualine_a = { "mode" },
-		lualine_b = { "branch", "diff", "diagnostics" },
-		lualine_c = { "filename" },
-		lualine_x = { "encoding", "filetype" },
-		lualine_y = { "progress" },
-		lualine_z = { "location" },
-	},
-	inactive_sections = {
-		lualine_a = {},
-		lualine_b = { "diagnostics" },
-		lualine_c = { "filename" },
-		lualine_x = { "location" },
-		lualine_y = { "filetype" },
-		lualine_z = { "progress" },
-	},
-	tabline = {},
-	winbar = {},
-	inactive_winbar = {},
-	extensions = {},
-})
+require("lualine-cfg")
 
 require("barbecue").setup()
 require("barbecue.ui").toggle(true)
@@ -302,3 +407,26 @@ require("color-picker").setup({
 })
 
 require("link-visitor").setup()
+
+require("noice").setup({
+	lsp = {
+		-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+		override = {
+			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+			["vim.lsp.util.stylize_markdown"] = true,
+			["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+		},
+	},
+	-- you can enable a preset for easier configuration
+	presets = {
+		bottom_search = true, -- use a classic bottom cmdline for search
+		command_palette = true, -- position the cmdline and popupmenu together
+		long_message_to_split = true, -- long messages will be sent to a split
+		inc_rename = false, -- enables an input dialog for inc-rename.nvim
+		lsp_doc_border = false, -- add a border to hover docs and signature help
+	},
+	cmdline = {
+		enabled = true,
+		view = "cmdline_popup",
+	},
+})
