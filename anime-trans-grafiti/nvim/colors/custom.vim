@@ -30,27 +30,27 @@ hi! link CursorLineFold CursorLine
 hi! link CursorLineSign CursorLine
 hi! link MessageWindow Pmenu
 hi! link PopupNotification Todo
-hi Normal guifg=#fefefe guibg=NONE gui=NONE cterm=NONE
-hi EndOfBuffer guifg=#1a2a53 guibg=NONE gui=NONE cterm=NONE
-" Deprecated - set in lualine-cfg
-hi StatusLine guifg=#1a2a53 guibg=#1a2a53 gui=bold cterm=NONE
-hi StatusLineNC guifg=#1a2a53 guibg=#1a2a53 gui=bold cterm=NONE
-hi StatusLineTerm guifg=#1a2a53 guibg=#1a2a53 gui=bold cterm=NONE
-hi StatusLineTermNC guifg=#1a2a53 guibg=#1a2a53 gui=bold cterm=NONE
-" End of deprecated block
-hi VertSplit guifg=#1a2a53 guibg=#1a2a53 gui=bold cterm=NONE
+hi Normal guifg=#edc8de guibg=#1f1b2d gui=NONE cterm=NONE
+hi EndOfBuffer guifg=#5f87d7 guibg=NONE gui=NONE cterm=NONE
+hi StatusLine guifg=#1f1b2d guibg=#e165a7 gui=bold cterm=NONE
+hi StatusLineNC guifg=#ff1b2d guibg=#a162a1 gui=bold cterm=NONE
+" unknown taget start
+hi StatusLineTerm guifg=#000000 guibg=#e165a7 gui=bold cterm=NONE
+hi StatusLineTermNC guifg=#666666 guibg=#2ca0cb gui=bold cterm=NONE
+hi VertSplit guifg=#a162a1 guibg=#a162a1 gui=bold cterm=NONE
+" unknown target end
 
-hi PmenuSel guifg=#fefefe guibg=#ad2a30 gui=NONE cterm=NONE
+hi PmenuSel guifg=#1f1b2d guibg=#e165a7 gui=NONE cterm=NONE
 hi Pmenu guifg=NONE guibg=#333333 gui=NONE cterm=NONE
-hi PmenuSbar guifg=NONE guibg=#1a2a53 gui=NONE cterm=NONE
-hi PmenuThumb guifg=NONE guibg=#ad2a30 gui=NONE cterm=NONE
+hi PmenuSbar guifg=NONE guibg=#e165a7 gui=NONE cterm=NONE
+hi PmenuThumb guifg=NONE guibg=#2ca0cb gui=NONE cterm=NONE
 
 " TODO: Sidebar and Thumb are currently not customizable
 hi CmpMenu guifg=None guibg=None gui=None cterm=None
-hi CmpMenuSbar guifg=NONE guibg=#1a2a53 gui=NONE cterm=NONE
-hi CmpMenuThumb guifg=NONE guibg=#ad2a30 gui=NONE cterm=NONE
+hi CmpMenuSbar guifg=NONE guibg=#e165a7 gui=NONE cterm=NONE
+hi CmpMenuThumb guifg=NONE guibg=#2ca0cb gui=NONE cterm=NONE
 
-hi TabLineSel guifg=#fefefe guibg=#ad2a30 gui=NONE cterm=NONE
+hi TabLineSel guifg=#000000 guibg=#e165a7 gui=NONE cterm=NONE
 hi TabLine guifg=#666666 guibg=#333333 gui=NONE cterm=NONE
 hi TabLineFill guifg=#ff8787 guibg=#333333 gui=NONE cterm=NONE
 hi ToolbarLine guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
@@ -62,32 +62,32 @@ hi Folded guifg=#666666 guibg=#000000 gui=NONE cterm=NONE
 hi FoldColumn guifg=#5f87d7 guibg=#000000 gui=NONE cterm=NONE
 
 " Default Pmenu select start
-hi CursorLine guifg=#fefefe guibg=#ad2a30 gui=bold cterm=NONE
+hi CursorLine guifg=#1f1b2d guibg=#e165a7 gui=NONE cterm=NONE
 hi CursorColumn guifg=NONE guibg=#333333 gui=NONE cterm=NONE
 hi ColorColumn guifg=NONE guibg=#000000 gui=NONE cterm=NONE
 " Default Pmenu select end
 
 hi CursorLineNr guifg=NONE guibg=#333333 gui=NONE cterm=NONE
-hi Visual guifg=#fefefe guibg=#ad2a30 gui=NONE cterm=NONE
+hi Visual guifg=#1f1b2d guibg=#2ca0cb gui=NONE cterm=NONE
 hi SignColumn guifg=NONE guibg=#262626 gui=NONE cterm=NONE
-hi VisualNOS guifg=#fefefe guibg=#ad2a30 gui=NONE cterm=NONE
+hi VisualNOS guifg=#1f1b2d guibg=#2ca0cb gui=NONE cterm=NONE
 hi LineNr guifg=#666666 guibg=NONE gui=NONE cterm=NONE
 
 " Vim messages start
 hi Error guifg=#ff0000 guibg=#ffffff gui=reverse cterm=reverse
 hi ErrorMsg guifg=#1f1b2d guibg=#ff0000 gui=reverse cterm=reverse
-hi ModeMsg guifg=#fefefe guibg=#ad2a30 gui=NONE cterm=NONE
+hi ModeMsg guifg=#1f1b2d guibg=#2ca0cb gui=NONE cterm=NONE
 hi WarningMsg guifg=#ff8787 guibg=NONE gui=NONE cterm=NONE
 hi MoreMsg guifg=#00875f guibg=NONE gui=NONE cterm=NONE
 hi Question guifg=#e165a7 guibg=NONE gui=NONE cterm=NONE
 " Vim messages end
 
-hi MatchParen guifg=#fefefe guibg=#1a2a53 gui=NONE cterm=NONE
-hi Search guifg=#fefefe guibg=#ad2a30 gui=NONE cterm=NONE
-hi IncSearch guifg=#fefefe guibg=#d83e4a gui=NONE cterm=NONE
+hi MatchParen guifg=#1f1b2d guibg=#2ca0cb gui=NONE cterm=NONE
+hi Search guifg=#1f1b2d guibg=#2ca0cb gui=NONE cterm=NONE
+hi IncSearch guifg=#1f1b2d guibg=#e165a7 gui=NONE cterm=NONE
 
 " Inherits text color from Comment
-hi Todo guifg=#14423f guibg=NONE gui=bold cterm=NONE
+hi Todo guifg=#00875f guibg=NONE gui=bold cterm=NONE
 
 hi WildMenu guifg=#262626 guibg=#d7d787 gui=NONE cterm=NONE
 hi Underlined guifg=#5f87d7 guibg=NONE gui=underline cterm=underline
@@ -99,33 +99,39 @@ hi SpellLocal guifg=#ffafaf guibg=NONE guisp=#ffafaf gui=undercurl cterm=underli
 hi SpellRare guifg=#ffd7af guibg=NONE guisp=#ffd7af gui=undercurl cterm=underline
 
 " code highlitghting start
-hi Comment guifg=#4c6a84 guibg=NONE gui=NONE cterm=NONE
-hi String guifg=#86a87e guibg=NONE gui=NONE cterm=NONE
-hi Identifier guifg=#d83e4a guibg=NONE gui=NONE cterm=NONE
-hi Function guifg=#ec8509 guibg=NONE gui=NONE cterm=NONE
-hi Special guifg=#a1e7eb guibg=NONE gui=bold cterm=NONE
-hi Statement guifg=#f36630 guibg=NONE gui=bold cterm=bold
-hi Constant guifg=#a1e7eb guibg=NONE gui=NONE cterm=NONE
-hi PreProc guifg=#ec8509 guibg=NONE gui=NONE cterm=NONE
-hi Type guifg=#f36630 guibg=NONE gui=bold cterm=bold
-hi Operator guifg=#f36630 guibg=NONE gui=NONE cterm=NONE
-hi Define guifg=#ec8509 guibg=NONE gui=bold cterm=bold
-hi Structure guifg=#f36630 guibg=NONE gui=NONE cterm=NONE
-hi Directory guifg=#f36630 guibg=NONE gui=bold cterm=bold
-hi Conceal guifg=#4c6a84 guibg=NONE gui=NONE cterm=NONE
+hi Comment guifg=#666666 guibg=NONE gui=NONE cterm=NONE
+hi String guifg=#5da3ce guibg=NONE gui=NONE cterm=NONE
+hi Identifier guifg=#edc8de guibg=NONE gui=NONE cterm=NONE
+hi Function guifg=#a162a1 guibg=NONE gui=NONE cterm=NONE
+hi Special guifg=#5da3ce guibg=NONE gui=bold cterm=NONE
+hi Statement guifg=#e165a7 guibg=NONE gui=bold cterm=bold
+hi Constant guifg=#5da3ce guibg=NONE gui=NONE cterm=NONE
+hi PreProc guifg=#e0cd4e guibg=NONE gui=NONE cterm=NONE
+hi Type guifg=#e165a7 guibg=NONE gui=bold cterm=bold
+hi Operator guifg=#e165a7 guibg=NONE gui=NONE cterm=NONE
+hi Define guifg=#ffd700 guibg=NONE gui=bold cterm=bold
+hi Structure guifg=#e165a7 guibg=NONE gui=NONE cterm=NONE
+hi Directory guifg=#e165a7 guibg=NONE gui=bold cterm=bold
+hi Conceal guifg=#666666 guibg=NONE gui=NONE cterm=NONE
 hi Ignore guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
-hi Title guifg=#f36630 guibg=NONE gui=bold cterm=bold
+hi Title guifg=#2ca0cb guibg=NONE gui=bold cterm=bold
 " code highlitghting end
 
+" Git highlitghting groups
 hi DiffAdd guifg=#ffffff guibg=#5f875f gui=NONE cterm=NONE
 hi DiffChange guifg=#ffffff guibg=#5f87af gui=NONE cterm=NONE
 hi DiffText guifg=#000000 guibg=#c6c6c6 gui=NONE cterm=NONE
 hi DiffDelete guifg=#ffffff guibg=#af5faf gui=NONE cterm=NONE
 
+"Gitsigns,nvim highlitghting groups
+hi GitSignsAdd guifg=#10b981 guibg=None gui=NONE cterm=NONE
+hi GitSignsChange guifg=#a1e7eb guibg=None gui=NONE cterm=NONE
+hi GitSignsDelete guifg=#ad2a30 guibg=None gui=NONE cterm=NONE
+
 hi DiagnosticHint guifg=#10b981 guibg=NONE gui=NONE cterm=NONE
 hi DiagnosticInfo guifg=#a1e7eb guibg=NONE gui=NONE cterm=NONE
 hi DiagnosticWarn guifg=#f59e07 guibg=NONE gui=NONE cterm=NONE
-hi DiagnosticError guifg=#ff0000 guibg=NONE gui=NONE cterm=NONE
+hi DiagnosticError guifg=#ad2a30 guibg=NONE gui=NONE cterm=NONE
 
 hi NvimTreeExecFile guifg=#2ca0cb guibg=None gui=bold cterm=bold
 hi! link NvimTreeModifiedFile NivmTreeOpenedFile

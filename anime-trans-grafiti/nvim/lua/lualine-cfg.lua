@@ -17,38 +17,17 @@ local colors = {
   red      = '#d83e4a',
 }
 
--- local lualine_theme = require("lualine.themes.auto")
-local lualine_theme = {}
-lualine_theme.normal = {
-	a = {
-		fg = colors.fg,
-		bg = colors.bg,
-	},
-	b = {
-		fg = colors.fg,
-		bg = colors.alt_bg1,
-	},
-	c = {
-		fg = colors.fg,
-		bg = colors.bg,
-	},
-}
-
+local lualine_theme = require("lualine.themes.auto")
+lualine_theme.normal.c.fg = colors.text
+lualine_theme.insert.c.fg = colors.text
+lualine_theme.replace.c.fg = colors.text
+lualine_theme.visual.c.fg = colors.text
+lualine_theme.command.c.fg = colors.text
 lualine_theme.inactive = {
-	a = {
-		fg = colors.fg,
-		bg = colors.bg,
-	},
-	b = {
-		fg = colors.fg,
-		bg = colors.alt_bg1,
-	},
-	c = {
-		fg = colors.fg,
-		bg = colors.alt_bg2,
-	},
+  a = { fg = colors.text, bg = colors.inactive_bg, gui = "bold" },
+  b = { fg = colors.inactive_bg, bg = colors.text },
+  c = { fg = colors.text, bg = colors.inactive_bg },
 }
-
 lualine_theme.normal.x = lualine_theme.normal.c
 lualine_theme.normal.y = lualine_theme.normal.b
 lualine_theme.normal.z = lualine_theme.normal.a
@@ -59,81 +38,34 @@ lualine_theme.inactive.z = lualine_theme.inactive.a
 
 -- Config
 local config = {
-	options = {
-		component_separators = { left = "|", right = "|" },
-		section_separators = { left = "", right = "" },
-		-- section_separators = { left = " ", right = " " },
-		theme = lualine_theme,
-	},
-	sections = {
-		lualine_a = { "mode" },
-		lualine_b = {
-			{
-				function()
-					return ""
-				end,
-				color = {
-					fg = lualine_theme.normal.b.bg,
-					bg = lualine_theme.normal.a.bg,
-				},
-				padding = { left = 0, right = 0 },
-			},
-			{
-				"filesize",
-				-- cond = conditions.buffer_not_empty()
-			},
-			"filename",
-			{
-				function()
-					return ""
-				end,
-				color = {
-					fg = lualine_theme.normal.b.bg,
-					bg = lualine_theme.normal.c.bg,
-				},
-				padding = { left = 0, right = 0 },
-			},
-		},
-		lualine_c = { "location", "progress" },
-		lualine_x = {
-			"diff",
-		},
-		lualine_y = {
-			{
-				function()
-					return ""
-				end,
-				color = {
-					fg = lualine_theme.normal.y.bg,
-					bg = lualine_theme.normal.x.bg,
-				},
-				padding = { left = 0, right = 0 },
-			},
-			"encoding",
-			"fileformat",
-		},
-		lualine_z = {
-			{
-				function()
-					return ""
-				end,
-				color = {
-					fg = lualine_theme.normal.y.bg,
-					bg = lualine_theme.normal.z.bg,
-				},
-				padding = { left = 0, right = 0 },
-			},
-		},
-	},
-	inactive_sections = {
-		-- these are to remove the defaults
-		lualine_a = {},
-		lualine_b = {},
-		lualine_c = {},
-		lualine_x = {},
-		lualine_y = {},
-		lualine_z = {},
-	},
+  options = {
+    icons_enabled = true,
+    component_separators = { left = "", right = "" },
+    section_separators = { left = "", right = "" },
+    theme = lualine_theme,
+    disabled_filetypes = {
+      statusline = { "NvimTree" },
+      winbar = {},
+    },
+
+  },
+  sections = {
+    lualine_a = { "mode" },
+    lualine_b = { "branch", "diff", "diagnostics" },
+    lualine_c = { "filename" },
+    lualine_x = { "encoding", "filetype" },
+    lualine_y = { "progress" },
+    lualine_z = { "location" },
+  },
+  inactive_sections = {
+    -- these are to remove the defaults
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = {},
+  },
 }
 
 lualine.setup(config)
